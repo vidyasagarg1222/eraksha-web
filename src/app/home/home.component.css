@@ -1,0 +1,5 @@
+.main_bg {
+    background-image: url('../../assets/img/ap-bg.jpg');
+    background-size: cover;
+    height: 100%;
+}
