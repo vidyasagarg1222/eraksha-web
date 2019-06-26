@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // apiUrl:'https://andhra-eraksha-api.trakitnow.com',
+  apiUrl:'http://ts-api-qa.trakitnow.com'
 };
 
 /*

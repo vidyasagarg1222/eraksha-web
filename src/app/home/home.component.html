@@ -17,8 +17,8 @@
     </div>
   </div>
   <div class="row text-center">
-      <button mat-stroked-button color="primary">
-    Action
+      <button mat-raised-button color="primary" class="text-center" *ngFor="let company of dataArray" style="margin: 10px" (click)="navToLog(company)">
+    {{company.name}}
   </button>
   </div>
 </div>
