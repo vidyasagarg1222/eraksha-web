@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router,ActivatedRoute} from '@angular/router';
 import {CommonService} from '../../_services/common.service';
 import { FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/_services/authenticationService';
+import { AuthenticationService } from '../../_services/authentication.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   loginForm:FormGroup;
   submitted:boolean;
+  returnUrl:any;
   constructor(private router:Router,
     private route:ActivatedRoute,private _common:CommonService,
     private formbuilder:FormBuilder,
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
     username:['',[Validators.required]],
     password:['',[Validators.required]]
   });
+  this.returnUrl = '/auth/dashboard'
   }
   onSubmit(){
     this.submitted = true;
@@ -36,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.toLogin(this.loginForm.controls.username.value,this.loginForm.controls.password.value).subscribe(
       data => {
         if(data['status']=='success'){
-          this.router.navigateByUrl('/auth/dashboard');
+          this.router.navigate([this.returnUrl]);
         }
       }
     )
