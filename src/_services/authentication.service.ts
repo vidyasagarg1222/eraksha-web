@@ -28,4 +28,7 @@ export class AuthenticationService {
         }));
 
     }
+    logout(){
+        localStorage.clear();
+    }
 }

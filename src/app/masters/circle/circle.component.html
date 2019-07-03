@@ -1,3 +1,48 @@
-<p>
-  circle works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="text-right mt-3 mb-3"><button class="btn btn-primary" (click)="openCircle('',Addcircle)"> + Add
+          Circle</button></div>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let circle of circles">
+          <td>{{circle.name}}</td>
+          <td>{{circle.address}}</td>
+          <td><button type="button" class="btn btn-sm btn-outline-primary btn_s mx-2"
+              (click)="openCircle(circle,Addcircle)" title="Edit"><i class="fa fa-edit"></i></button></td>
+          <td><button type="button" class="btn btn-sm btn-outline-primary btn_s mx-2"
+              (click)="deleteCircle(circle)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<ng-template #Addcircle>
+  <div class="modal-header bg-primary py-2">
+    <h5 id="dialog-auto-name" class="modal-title  text-center text-white">{{pageTitle}}</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col mt-3">
+        <form [formGroup]="subdivForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <textarea formControlName="address" placeholder="Address" class="form-control"></textarea>
+          </div>
+          <button class="btn btn-primary mb-3 button" type="submit">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

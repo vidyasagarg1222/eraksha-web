@@ -33,6 +33,7 @@
       }
       .navbar {
         background: #0c465e !important;
+        z-index: 0 !important;
       }
       
       .navbar {

@@ -6,7 +6,10 @@ import { PolicestationComponent } from './policestation/policestation.component'
 import { MandalComponent } from './mandal/mandal.component';
 import { VillageComponent } from './village/village.component';
 import { Routes, RouterModule } from '@angular/router';
-
+import { MatTableModule } from '@angular/material';
+import {DemoMaterialModule} from '../material.module';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 export const masterRoutes:Routes = [
   {path:'subdivision',component:SubdivisionComponent},
   {path:'circle',component:CircleComponent},
@@ -23,7 +26,11 @@ export const masterRoutes:Routes = [
   VillageComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(masterRoutes)
+    RouterModule.forChild(masterRoutes),
+    MatTableModule,
+    DemoMaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MastersModule { }
