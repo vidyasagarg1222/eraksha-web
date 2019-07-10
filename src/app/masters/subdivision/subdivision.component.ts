@@ -3,10 +3,12 @@ import { MastersService } from 'src/_services/master.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-subdivision',
   templateUrl: './subdivision.component.html',
-  styleUrls: ['./subdivision.component.css']
+  styleUrls: ['./subdivision.component.css'],
+  providers:[MessageService]
 })
 export class SubdivisionComponent implements OnInit {
   subdivisions: any;

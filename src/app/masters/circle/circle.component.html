@@ -1,28 +1,40 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="text-right mt-3 mb-3"><button class="btn btn-primary" (click)="openCircle('',Addcircle)"> + Add
-          Circle</button></div>
-      <table class="table table-bordered">
-        <tr>
-          <th>Name</th>
-          <th>Address</th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr *ngFor="let circle of circles">
-          <td>{{circle.name}}</td>
-          <td>{{circle.address}}</td>
-          <td><button type="button" class="btn btn-sm btn-outline-primary btn_s mx-2"
-              (click)="openCircle(circle,Addcircle)" title="Edit"><i class="fa fa-edit"></i></button></td>
-          <td><button type="button" class="btn btn-sm btn-outline-primary btn_s mx-2"
-              (click)="deleteCircle(circle)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</div>
+<p-toast [baseZIndex]="1000"></p-toast>
+<p-table #dt [columns]="cols" [value]="circles" autoLayout="true"
+        sortField="firstName" 
+        [rowsPerPageOptions]="[10,20,50,100]" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+          <div class="row mb-1">
+            <div class="col-lg-6 col-md-6">
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <div align="right">
+                <button type="button" class="btn btn-success btn-sm" (click)="openCircle('',Addcircle)">+
+                  Add Circle</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th></th>
+          </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-result ngFor let-i="rowIndex+1" ;>
+          <tr [pSelectableRow]="result">
+            <td>{{i}}</td>
+            <td>{{result.name}}</td>
+            <td>{{result.address}}</td>
+            <td><button type="button" title="Edit" class="btn btn-sm btn-outline-primary btn_s mr-1"
+              (click)="openCircle(result,Addcircle)"><i class="fa fa-edit"></i></button>
+              <button type="button" class="btn btn-sm btn-outline-primary btn_s mx-2"
+              (click)="opendeleteCircle(result)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+          </tr>
+        </ng-template>
+      </p-table>
 <ng-template #Addcircle>
   <div class="modal-header bg-primary py-2">
     <h5 id="dialog-auto-name" class="modal-title  text-center text-white">{{pageTitle}}</h5>
@@ -33,7 +45,7 @@
   <div class="container">
     <div class="row">
       <div class="col mt-3">
-        <form [formGroup]="subdivForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="circleForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <input type="text" class="form-control" formControlName="name" placeholder="Name">
           </div>

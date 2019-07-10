@@ -10,6 +10,14 @@ import { MatTableModule } from '@angular/material';
 import {DemoMaterialModule} from '../material.module';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { sharedPrimengModule } from '../shared/shared-primeng.module';
+import {TableModule} from 'primeng/table';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { AgmCoreModule } from '@agm/core';
+
 export const masterRoutes:Routes = [
   {path:'subdivision',component:SubdivisionComponent},
   {path:'circle',component:CircleComponent},
@@ -27,10 +35,20 @@ export const masterRoutes:Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(masterRoutes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAVsgN0Ou_BIY-3g9ZjCo4PIn_BIFeSZX0',
+      libraries: ["places"]
+    }),
     MatTableModule,
     DemoMaterialModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    sharedPrimengModule,
+    TableModule,
+    NgxPaginationModule,
+    MatGoogleMapsAutocompleteModule,
+    ToastModule
+  ],
+  // providers:[MessageService]
 })
 export class MastersModule { }

@@ -1,0 +1,39 @@
+<p-toast [baseZIndex]="1000"></p-toast>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <p-table [value]="vehiclesList" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>VEHICLE NAME.</th>
+                <th>VEHICLE NO</th>
+                <th>PS NAME</th>
+                <th>TYPE OF VEHICLE</th>
+                <th>CURRENT LOCATION</th>
+                <th>GPS SIGNAL</th>
+                <th>OVER SPEED</th>
+                <th>VTS TAMPER</th>
+                <th>VEHICLE IDLE</th>
+                <th>GEO-FENCING</th>
+                <th>MAP</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-vehicle>
+          <tr>
+            <td>{{vehicle.vehicleName}}</td>
+            <td>{{vehicle.vehicleNumber}}</td>
+            <td>{{vehicle.psName}}</td>
+            <td>{{vehicle.deviceType}}</td>
+            <td>{{vehicle.currentLocation}}</td>
+            <!-- <td>{{vehicle.vehicleName}}</td>
+            <td>{{vehicle.vehicleName}}</td>
+            <td>{{vehicle.vehicleName}}</td>
+            <td>{{vehicle.vehicleName}}</td>
+            <td>{{vehicle.vehicleName}}</td>
+            <td>{{vehicle.vehicleName}}</td> -->
+          </tr>
+        </ng-template>
+    </p-table>
+    </div>
+  </div>
+</div>

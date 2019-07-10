@@ -13,6 +13,11 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { JwtInterceptor } from 'src/_helpers/jwt.interceptor';
 import { ErrorInterceptor } from 'src/_helpers/error.interceptor';
+import {sharedPrimengModule} from './shared/shared-primeng.module';
+import { AgmCoreModule } from '@agm/core';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+
+// import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +33,13 @@ import { ErrorInterceptor } from 'src/_helpers/error.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    ModalModule.forRoot()
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyAVsgN0Ou_BIY-3g9ZjCo4PIn_BIFeSZX0",
+      libraries: ["places"]
+    }),
+    MatGoogleMapsAutocompleteModule.forRoot(),
+    ModalModule.forRoot(),
+    sharedPrimengModule,
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

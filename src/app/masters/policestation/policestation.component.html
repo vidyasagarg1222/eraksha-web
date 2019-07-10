@@ -1,3 +1,97 @@
-<p>
-  policestation works!
-</p>
+<p-toast [baseZIndex]="1000"></p-toast>
+<p-table #dt [columns]="cols" [value]="policestations" autoLayout="true" sortField="firstName"
+  [rowsPerPageOptions]="[10,20,50,100]" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="caption">
+    <div class="row mb-1">
+      <div class="col-lg-6 col-md-6">
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div align="right">
+          <button type="button" class="btn btn-success btn-sm" (click)="openPolicestation('',AddPs)">+
+            Add Policestation</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th>#</th>
+      <th>PS NAME</th>
+      <th>MOBILE NUMBER</th>
+      <th>ADDRESS</th>
+      <th>EMAIL</th>
+      <th></th>
+    </tr>
+
+  </ng-template>
+  <ng-template pTemplate="body" let-result ngFor let-i="rowIndex+1" ;>
+    <tr [pSelectableRow]="result">
+      <td>{{i}}</td>
+      <td>{{result.psName}}</td>
+      <td>{{result.mobileNumber}}</td>
+      <td>{{result.address}} </td>
+      <td>{{result.email}} </td>
+      <td><button type="button" class="btn btn-sm btn-outline-primary btn_s mx-2"
+          (click)="openPolicestation(result,AddPs)" title="Edit"><i class="fa fa-edit"></i></button>
+        <button type="button" class="btn btn-sm btn-outline-primary btn_s mx-2" (click)="deletePolicestation(result)"><i
+            class="fa fa-trash" aria-hidden="true"></i></button></td>
+    </tr>
+  </ng-template>
+</p-table>
+<ng-template #AddPs>
+  <div class="modal-header bg-primary py-2">
+    <h5 id="dialog-auto-name" class="modal-title  text-center text-white">{{pageTitle}}</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col mt-3">
+        <form #policeForm="ngForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <!-- <label for="name">Name</label> -->
+            <input type="text" class="form-control" [(ngModel)]="psName" name="name" placeholder="Ps Name">
+          </div>
+          <div class="form-group">
+            <!-- <label for="subdiv">Subdivision</label> -->
+            <select name="subDivision" class="form-control" [(ngModel)]="subDivision" (change)="getCircles(subDivision)">
+              <option value="" disabled> Select Subdivision</option>
+              <option *ngFor = "let sub of subdivisions" [ngValue]="sub" >{{sub.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <!-- <label for="circle">Circle</label> -->
+            <select name="circle" class="form-control" [(ngModel)]="circle">
+              <option value="" disabled> Select Circle</option>
+              <option *ngFor="let circle of circles">{{circle.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <!-- <label for="mandal">Mandal</label> -->
+            <select name="mandal" class="form-control" [(ngModel)]="mandal">
+              <option value="" disabled>Select Mandal</option>
+              <option *ngFor="let mandal of mandals" [ngValue]="mandal">{{mandal.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <!-- <label for="mobile">Mobile Number</label> -->
+            <input type="text" class="form-control" name="mobileNumber" [(ngModel)]="mobileNumber" placeholder="Enter Mobile Number">
+          </div>
+          <div class="form-group">
+            <!-- <label for="email">Email</label> -->
+            <input type="text" class="form-control" name="email" [(ngModel)]="email" placeholder="Enter Email ID">
+          </div>
+          <div class="form-group">
+            <!-- <label for="address">Address</label> -->
+            <input class="form-control" matInput matGoogleMapsAutocomplete [country]="in" (onAutocompleteSelected)="onAutocompleteSelected($event)"
+            (onLocationSelected)="onLocationSelected($event)" name="address" [(ngModel)]="address">
+          </div>
+          <div class="form-group text-right">
+          <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
