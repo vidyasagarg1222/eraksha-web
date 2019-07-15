@@ -7,6 +7,7 @@ export const authRoutes:Routes = [
        {path:'dashboard',loadChildren:'../dashboard/dashboard.module#DashboardModule'},
        {path:'masters',loadChildren:'../masters/masters.module#MastersModule'},
        {path:'quickview',component:QuickviewComponent},
-       {path:'reports',loadChildren:'../reports/reports.module#ReportsModule'}
+       {path:'reports',loadChildren:'../reports/reports.module#ReportsModule'},
+       {path:'vehicle',loadChildren:'../vehicle/vehicle.module#VehicleModule'}
    ]} 
 ]

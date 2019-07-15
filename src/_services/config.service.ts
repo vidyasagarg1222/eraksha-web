@@ -8,6 +8,6 @@ export class ConfigService {
     constructor(private http:HttpClient){}
     getConfig(){
         // return this.http.get('./assets/eraksha-web.json');
-        return this.http.get('./assets/ts-qa.json');
+        return this.http.get('./assets/eraksha.json');
     }
 }

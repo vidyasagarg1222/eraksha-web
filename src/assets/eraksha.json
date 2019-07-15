@@ -1,0 +1,26 @@
+{
+    "apiUrl": "https://eraksha-api.trakitnow.com",
+    "companyID": "ERAKSHA",
+    "notifUrl": "wss://eraksha-api.trakitnow.com/socket.io/",
+    "trakUrl": "wss://eraksha-api.trakitnow.com/websocket",
+    "companys": {
+        "ERAKSHA": {
+            "CP_Dashboard_url": "",
+            "companyID": "ERAKSHA",
+            "dial_100_url": "",
+            "disLatitude": 16.3236501,
+            "disLongitude": 80.399499,
+            "districtLogo": "state_police_logo.png",
+            "login_top": "login_top.png",
+            "low_left": "low_left.png",
+            "low_middle": "",
+            "low_right": "low_right.png",
+            "middle_left": "middle_left.png",
+            "middle_right": "middle_right.png",
+            "name": "Vijaywada Eraksha",
+            "set": true,
+            "top_left": "state_logo.png",
+            "top_right": "state_police_logo.png"
+        }
+    }
+}

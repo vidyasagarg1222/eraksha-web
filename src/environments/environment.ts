@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // apiUrl:'https://andhra-eraksha-api.trakitnow.com',
-  apiUrl:'http://ts-api-qa.trakitnow.com'
+  // apiUrl:'http://ts-api-qa.trakitnow.com'
+  apiUrl:'https://eraksha-api.trakitnow.com'
 };
 
 /*

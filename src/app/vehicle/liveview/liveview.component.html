@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row my-3">
+    <div class="col-md-3 ">
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Number Of Preincidents
+            </mat-panel-title>
+          
+          </mat-expansion-panel-header>
+          <ul *ngFor="let v of preincidentList">
+            <li>{{v.cidNo}}</li>
+          </ul>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="col-md-9">
+      <mat-card><agm-map [latitude]="latitude" [longitude]="longitude">
+          <agm-marker *ngFor="let m of deviceList;  let i = index" [latitude]="+m.latitude"
+          [longitude]="+m.longitude"
+          [iconUrl]="m.iconUrl"
+          [markerDraggable]="false">
+          <agm-info-window><a style="width:200px;text-decoration: none; font-weight: 600;line-height:20px;font-size: 15px;color: #f60" href="javascript:void(0)" (click)="getHistory(m)">
+          <div>Vehicle Name: {{m.vehicleName}}</div>
+          <div>Vehicle Number: {{m.vehicleNumber}}</div>
+          <div>Date and Time :{{m.updatedAt | date:'dd/MM/yyyy hh:mm:ss a'}}</div>
+          <div>Speed: {{m.speed}}</div>
+          <div>Ps Name: {{m.psName}}</div>
+          </a></agm-info-window>
+          </agm-marker>
+      </agm-map></mat-card>
+    </div>
+  </div>
+</div>

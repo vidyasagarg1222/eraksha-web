@@ -1,0 +1,68 @@
+.breadcrumb {
+    padding: 8px;
+    background-color: #EEEEEE;
+}
+.status {
+    padding: 8px;
+    color: #fff;
+    background-color: #216694 !important;
+}
+.irfs {
+    text-align: center;
+    padding: 27px;
+    color: #fff;
+}
+.irf {
+    background-color: #34495D;
+
+}
+.irf1 {
+    background-color: #E74C3C;
+    
+}
+.irf2{
+    background-color: #95A5A6;
+    
+}
+.irf3 {
+    background-color: #42A085;
+    
+}
+.irf4 {
+    background-color: #F39C2D;
+    
+}
+.irf5 {
+    background-color: #2980B9;
+    
+}
+.vehicles {
+    padding: 18px;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 500;
+}
+.count {
+    margin-right: 20px;
+}
+.total {
+    background-color: #42A085;
+}
+.idle {
+    background-color: #95A5A6;
+}
+.run {
+    background-color: #F39C2D;
+}
+.tamper {
+    background-color: rgb(177, 52, 146);
+}
+.highcharts-pie-series .highcharts-point {
+	stroke: #EDE;
+	stroke-width: 2px;
+}
+.highcharts-pie-series .highcharts-data-label-connector {
+	stroke: silver;
+	stroke-dasharray: 2, 2;
+	stroke-width: 2px;
+}
