@@ -7,7 +7,7 @@
             <mat-panel-title>
               Number Of Preincidents
             </mat-panel-title>
-          
+
           </mat-expansion-panel-header>
           <ul *ngFor="let v of preincidentList">
             <li>{{v.cidNo}}</li>
@@ -16,20 +16,77 @@
       </mat-accordion>
     </div>
     <div class="col-md-9">
-      <mat-card><agm-map [latitude]="latitude" [longitude]="longitude">
-          <agm-marker *ngFor="let m of deviceList;  let i = index" [latitude]="+m.latitude"
-          [longitude]="+m.longitude"
-          [iconUrl]="m.iconUrl"
-          [markerDraggable]="false">
-          <agm-info-window><a style="width:200px;text-decoration: none; font-weight: 600;line-height:20px;font-size: 15px;color: #f60" href="javascript:void(0)" (click)="getHistory(m)">
-          <div>Vehicle Name: {{m.vehicleName}}</div>
-          <div>Vehicle Number: {{m.vehicleNumber}}</div>
-          <div>Date and Time :{{m.updatedAt | date:'dd/MM/yyyy hh:mm:ss a'}}</div>
-          <div>Speed: {{m.speed}}</div>
-          <div>Ps Name: {{m.psName}}</div>
-          </a></agm-info-window>
+      <mat-card>
+        <agm-map [latitude]="lat" [longitude]="lng">
+          <agm-marker *ngFor="let m of deviceList;  let i = index" [latitude]="+m.latitude" [longitude]="+m.longitude"
+            [iconUrl]="m.iconUrl" [markerDraggable]="false">
+            <agm-info-window><a class="infoWind" href="javascript:void(0)" (click)="getHistory(m,AddHistory)">
+                <div>Vehicle Name: {{m.vehicleName}}</div>
+                <div>Vehicle Number: {{m.vehicleNumber}}</div>
+                <div>Date and Time :{{m.updatedAt | date:'dd/MM/yyyy hh:mm:ss a'}}</div>
+                <div>Speed: {{m.speed}}</div>
+                <div>Ps Name: {{m.psName}}</div>
+              </a></agm-info-window>
           </agm-marker>
-      </agm-map></mat-card>
+        </agm-map>
+      </mat-card>
     </div>
   </div>
 </div>
+<ng-template #AddHistory>
+  <div class="modal-header bg-primary py-2">
+    <h5 id="dialog-auto-name" class="modal-title  text-center">{{pageTitle}} {{vehicleNumber}}</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row p-2">
+      <div class="col-sm-6">
+        <b><input type="checkbox" [checked]="showMarkers" (change)="showMarkers = !showMarkers" />
+          &nbsp;Show Markers
+          <input class="ml-5" type="checkbox" [checked]="showStartEnd" (change)="showStartEnd = !showStartEnd" />
+          &nbsp;Show Start/End Points </b>
+      </div>
+      <div class="col-md-6" align="right">
+        <i class="fa fa-square" style="font-size:15px; color: #58AFF3;" aria-hidden="true"></i>
+        Speed
+        <b>Below 30 km/h</b>&nbsp; &nbsp;
+        <i class="fa fa-square" style="font-size:15px; color: #FE1919;" aria-hidden="true"></i>
+        Speed
+        <b>Above 30 km/h</b>
+      </div>
+    </div>
+    <agm-map *ngIf="lochistory.length == 1" style="height:400px; width:100%" [streetViewControl]="false"
+      [latitude]="lochistory[0]?.latitude" [longitude]="lochistory[0]?.longitude" [zoom]="15" [mapTypeControl]="true"
+      [fullscreenControl]="true">
+    </agm-map>
+    <agm-map *ngIf="lochistory.length > 1" style="height:400px; width:100%" [streetViewControl]="false"
+      [latitude]="+lochistory[0]?.latitude" [longitude]="+lochistory[0]?.longitude" [zoom]="15" [mapTypeControl]="true"
+      [fullscreenControl]="true">
+      <agm-marker class="mapMarker" [visible]="showStartEnd" [latitude]="+lochistory[0].latitude"
+          [longitude]="+lochistory[0].longitude" [iconUrl]="'/assets/img/marker-green.png'">
+          <agm-info-window>Position :
+            {{+lochistory[0].latitude}},{{+lochistory[0].longitude}} <br /> Date :
+            {{lochistory[0].createdAt | date:'dd/MM/yyyy h:mm:ss a'}} </agm-info-window>
+        </agm-marker>
+        <agm-marker class="mapMarker" [visible]="showStartEnd" [latitude]="lochistory[lochistory.length-1].latitude"
+          [longitude]="+lochistory[lochistory.length-1].longitude" [iconUrl]="'/assets/img/marker-red.png'">
+          <agm-info-window>Position :
+            {{+lochistory[lochistory.length-1].latitude}},{{+lochistory[lochistory.length-1].longitude}} <br />
+            Date : {{lochistory[lochistory.length-1].createdAt | date:'dd/MM/yyyy
+              h:mm:ss a'}} </agm-info-window>
+        </agm-marker>
+        
+      <agm-polyline *ngFor="let point of lochistory;let i = index;"  [strokeColor]="point.speed < 50 ? '#2196f3': 'red'">
+        <agm-polyline-point [latitude]="point.latitude" [longitude]="point.longitude">
+        </agm-polyline-point>
+        
+        <ng-container *ngIf="lochistory[i+1]">
+          <agm-polyline-point [latitude]="lochistory[i+1].latitude" [longitude]="lochistory[i+1].longitude">
+          </agm-polyline-point>
+        </ng-container>
+    </agm-polyline>
+    </agm-map>
+  </div>
+</ng-template>

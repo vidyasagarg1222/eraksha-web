@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
 import { LiveviewService } from 'src/_services/liveview.service';
 import * as _ from 'lodash';
-// import {} from '../../../assets/img/'
+import {BsModalRef,BsModalService} from 'ngx-bootstrap/modal';
+
 @Component({
   selector: 'app-liveview',
   templateUrl: './liveview.component.html',
@@ -22,20 +23,31 @@ export class LiveviewComponent implements OnInit {
   currentUserDatePsName: any;
   latitude:number;
   longitude:number;
+  lat:number;
+  lng:number;
   deviceList: any;
   iconUrl:any;
+  bsModalRef:BsModalRef;
+  pageTitle:any;
+  vehicleNumber: any;
+  endDate: any;
+  stdDate: any;
+  showMarkers:boolean = false;
+  showStartEnd:boolean = true;
+  lochistory: any = [];
+  loading: boolean;
+  history: any;
   constructor(
-    private liveviewService: LiveviewService
+    private liveviewService: LiveviewService,
+    private bsModalService:BsModalService
   ) { }
 
   ngOnInit() {
     this.getPreIncidents();
     this.currentUserDatePsName = JSON.parse(localStorage.getItem('currentUser')).userInfo;
-    console.log("useer",this.currentUserDatePsName.extras.latitude);
-    this.latitude = this.currentUserDatePsName.extras.latitude;
-    this.longitude = this.currentUserDatePsName.extras.longitude;
+    this.lat = this.currentUserDatePsName.extras.latitude;
+    this.lng = this.currentUserDatePsName.extras.longitude;
     this.getDevices();
-    // this.getImage(this.iconUrl);
   }
   splitFunction(message) {
     var name = '';
@@ -133,9 +145,53 @@ export class LiveviewComponent implements OnInit {
       }
     })
   }
-  getHistory(obj) {
-    console.log("object",obj);
-    
+  getHistory(info,template:TemplateRef<any>) {
+    this.pageTitle = "Vehicle Location History of"
+    this.vehicleNumber = info.vehicleNumber;
+    this.stdDate = new Date(new Date().setHours(0,0,0)).toISOString();
+    this.endDate = new Date().toISOString();
+    let obj = {
+      startDate:this.stdDate,
+      endDate:this.endDate,
+      deviceID:info.deviceID,
+      downloadpdf: true
+    }
+    this.liveviewService.getVehicleHistory(obj).subscribe(data => {
+      this.lochistory = data['rows'];
+      // this.summaryTrackLocation(this.lochistory)
+    })
+    this.bsModalRef = this.bsModalService.show(template,{class:'modal-lg modal_large',backdrop:'static'});
+  }
+  summaryTrackLocation(details) {
+    this.loading = true;
+    this.lochistory = [];
+    // this.history = details;
+
+    if (details.length < 100) {
+      this.history = details;
+      this.lochistory = details;
+      this.loading = false;
+    } else {
+      this.history = details;
+      for (let i = 0; i < 100; i++) {
+        this.lochistory.push(this.history[i]);
+      }
+      const interval = setInterval(() => {
+        const len = this.lochistory.length;
+        const hlen = this.history.length;
+        if (len < hlen) {
+          this.lochistory.push(this.history[len]);
+          this.loading = false;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1);
+    }
+
+    // this.lochistory = details;
+  }
+  hideModal() {
+    this.bsModalRef.hide();
   }
   getDevices() {
     this.liveviewService.getDevices().subscribe(data => {

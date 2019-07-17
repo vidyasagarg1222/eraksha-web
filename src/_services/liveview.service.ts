@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../environments/environment';
 @Injectable({
     providedIn: 'root'
@@ -9,7 +9,7 @@ export class LiveviewService {
     token: any;
     headers: HttpHeaders;
     roleID: any;
-    constructor(private http:HttpClient) {
+    constructor(private http: HttpClient) {
         this.companyID = JSON.parse(localStorage.getItem('currentUser')).userInfo.companyID;
         this.token = JSON.parse(localStorage.getItem('currentUser')).userInfo.token;
         this.roleID = JSON.parse(localStorage.getItem('currentUser')).userInfo;
@@ -17,19 +17,22 @@ export class LiveviewService {
             'Content-Type': 'application/json',
             'companyID': this.companyID,
             'Authorization': 'token ' + this.token,
-            
+
         })
     }
     getPreincidents(obj) {
-        return this.http.get(`${environment.apiUrl}/item/preincident/list?startDate=${obj.startDate}&limit=${obj.limit}&page=${obj.page}&sortBy=${obj.sortBy}`,{headers:this.headers})
+        return this.http.get(`${environment.apiUrl}/item/preincident/list?startDate=${obj.startDate}&limit=${obj.limit}&page=${obj.page}&sortBy=${obj.sortBy}`, { headers: this.headers })
     }
     getDevices() {
         let devices = {
-            allIn:JSON.stringify([{
+            allIn: JSON.stringify([{
                 "roots": this.roleID.extras.roots
             }])
         }
-        
-        return this.http.get(`${environment.apiUrl}/item/dvmap/list?allIn=${devices.allIn}&limit=1000`,{headers:this.headers})
+
+        return this.http.get(`${environment.apiUrl}/item/dvmap/list?allIn=${devices.allIn}&limit=1000`, { headers: this.headers })
+    }
+    getVehicleHistory(obj) {
+        return this.http.get(`${environment.apiUrl}/eraksha/vehicle/history?deviceID=${obj.deviceID}&startDate=${obj.startDate}&endDate=${obj.endDate}&downloadpdf=${obj.downloadpdf}`,{headers:this.headers})
     }
 }

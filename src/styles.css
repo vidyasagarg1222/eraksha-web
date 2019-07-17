@@ -63,3 +63,11 @@ html {
   code {
     font-size: 80%;
   }
+  .infoWind {
+    width:200px;
+    text-decoration: none;
+     font-weight: 600;
+     line-height:20px;
+     font-size: 15px;color: #f60
+  }
+  .modal_large{max-width: 1200px !important;}
