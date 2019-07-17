@@ -36,7 +36,7 @@ export const masterRoutes:Routes = [
     CommonModule,
     RouterModule.forChild(masterRoutes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAVsgN0Ou_BIY-3g9ZjCo4PIn_BIFeSZX0',
+      apiKey: '',
       libraries: ["places"]
     }),
     MatTableModule,

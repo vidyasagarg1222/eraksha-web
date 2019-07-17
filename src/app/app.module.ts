@@ -34,7 +34,7 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
     ReactiveFormsModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyAVsgN0Ou_BIY-3g9ZjCo4PIn_BIFeSZX0",
+      apiKey: "",
       libraries: ["places"]
     }),
     MatGoogleMapsAutocompleteModule.forRoot(),
